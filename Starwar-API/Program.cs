@@ -12,10 +12,18 @@ namespace Starwar_API
         static void Main(string[] args)
         {
             const string PLANETS = "planets/";
-            const string PEOPLE = "people/";
-            Console.WriteLine(CallRestMethod(new Uri(BASE_URL + PLANETS)));
-            Console.WriteLine(CallRestMethod(new Uri(BASE_URL + PEOPLE)));
-            Console.ReadLine();
+            // const string PEOPLE = "people/";
+            JObject names = CallRestMethod(new Uri(BASE_URL + PLANETS));
+            JArray resultsFrom = (JArray)names.SelectToken("results");
+
+            foreach (JToken result in resultsFrom)
+            {
+                string planetName = (string)result.SelectToken("name");
+                Console.WriteLine("Planet Name :  " + planetName);
+
+            }
+                // Console.WriteLine(CallRestMethod(new Uri(BASE_URL + PEOPLE)));
+                Console.ReadLine();
         }
 
         static JObject CallRestMethod(Uri uri)
