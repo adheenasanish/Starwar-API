@@ -23,7 +23,7 @@ namespace Starwar_API
                 // Get a stream to read the reponse
                 StreamReader responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
                 // Read the response and write it to the console
-                Console.WriteLine(JObject.Parse(responseStream.ReadToEnd()));
+                Console.WriteLine(CallRestMethod(new Uri(baseUrl + planets)));
                 // Close the connection to the api and the stream reader
                 response.Close();
                 responseStream.Close();
@@ -35,5 +35,21 @@ namespace Starwar_API
             Console.ReadLine();
 
         }
+        static JObject CallRestMethod(Uri uri)
+        {
+            // Create a web request for the given uri
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            // Get the web response from the api
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            // Get a stream to read the reponse
+            StreamReader responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+            // Read the response and write it to the console
+            JObject result = JObject.Parse(responseStream.ReadToEnd());
+            // Close the connection to the api and the stream reader
+            response.Close();
+            responseStream.Close();
+            return result;
+        }
+
     }
 }
