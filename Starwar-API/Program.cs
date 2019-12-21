@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -22,7 +23,7 @@ namespace Starwar_API
                 // Get a stream to read the reponse
                 StreamReader responseStream = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
                 // Read the response and write it to the console
-                Console.WriteLine(responseStream.ReadToEnd());
+                Console.WriteLine(JObject.Parse(responseStream.ReadToEnd()));
                 // Close the connection to the api and the stream reader
                 response.Close();
                 responseStream.Close();
