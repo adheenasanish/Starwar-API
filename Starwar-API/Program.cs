@@ -20,7 +20,15 @@ namespace Starwar_API
             {
                 string planetName = (string)result.SelectToken("name");
                 Console.WriteLine("Planet Name :  " + planetName);
+                JArray planetNameFilms = (JArray)result.SelectToken("films");
+                foreach (JToken film in planetNameFilms)
+                {
+                    string filmFromJson = (string)film;
+                    Console.WriteLine(filmFromJson);
 
+
+                }
+                Console.WriteLine("---------------------------------");
             }
                 // Console.WriteLine(CallRestMethod(new Uri(BASE_URL + PEOPLE)));
                 Console.ReadLine();
